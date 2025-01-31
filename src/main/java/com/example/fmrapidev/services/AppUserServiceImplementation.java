@@ -7,9 +7,11 @@ import com.example.fmrapidev.repositories.AppUserRepository;
 import com.example.fmrapidev.viewmodels.UserRegisterViewModel;
 import org.springframework.beans.BeanUtils;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.stereotype.Service;
 
 import java.util.stream.Collectors;
 
+@Service
 public class AppUserServiceImplementation implements AppUserService {
     private final AppUserRepository appUserRepository;
     private final AppRoleRepository appRoleRepository;
