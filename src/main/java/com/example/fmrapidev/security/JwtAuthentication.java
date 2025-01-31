@@ -11,14 +11,14 @@ public class JwtAuthentication implements Authentication {
     private Collection<? extends GrantedAuthority> authorities;
     private boolean authenticated;
 
-    public JwtAuthentication() {
+    public JwtAuthentication(String jwt) {
+        this.jwt = jwt;
     }
 
-    public JwtAuthentication(String jwt, String username, Collection<? extends GrantedAuthority> authorities, boolean authenticated) {
-        this.jwt = jwt;
+    public JwtAuthentication(String username, Collection<? extends GrantedAuthority> authorities) {
         this.username = username;
         this.authorities = authorities;
-        this.authenticated = authenticated;
+        this.setAuthenticated(true);
     }
 
     @Override
