@@ -2,6 +2,8 @@ package com.example.fmrapidev.apis;
 
 import com.example.fmrapidev.models.Book;
 import com.example.fmrapidev.services.BookService;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -9,6 +11,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("api/v1/books")
+@Tag(name = "Book API", description = "RESTful Web API for book resource")
 public class BookApi {
     
     private final BookService bookService;
@@ -23,7 +26,7 @@ public class BookApi {
         return ResponseEntity.ok(bookService.getAll());
     }
     
-    @GetMapping("{bookId}")
+    @GetMapping(value = "{bookId}")
     public ResponseEntity<Book> getBookById(@PathVariable int bookId) {
         return ResponseEntity.ok(bookService.getById(bookId));
     }
