@@ -6,6 +6,9 @@ import com.example.fmrapidev.repositories.BookRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.CachePut;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -19,11 +22,13 @@ public class BookServiceImplementation implements BookService {
         this.bookRepository = bookRepository;
     }
 
+    @Cacheable("books")
     @Override
     public List<Book> getAll() {
         return bookRepository.findAll();
     }
 
+    @Cacheable(value = "books", key = "#bookId")
     @Override
     public Book getById(int bookId) {
         return bookRepository.findById(bookId)
@@ -36,6 +41,7 @@ public class BookServiceImplementation implements BookService {
         return book;
     }
 
+    @CachePut(value = "books", key = "#bookId")
     @Override
     public Book update(int bookId, Book book) {
         //  get the book from db
@@ -51,6 +57,7 @@ public class BookServiceImplementation implements BookService {
         return bookDb;
     }
 
+    @CacheEvict(value = "books", key = "#bookId")
     @Override
     public void deleteById(int bookId) {
         //  find the book
